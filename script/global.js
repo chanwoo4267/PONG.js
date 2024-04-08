@@ -1,7 +1,4 @@
-/* 
-    const MOVE_DIRECTION
-    IDLE, UP, DOWN, LEFT, RIGHT
-*/
+
 const MOVE_DIRECTION = {
     IDLE: 0,
     UP: 1,
@@ -10,11 +7,10 @@ const MOVE_DIRECTION = {
     RIGHT: 4
 };
 
-/*
-    const WINNABLE_ROUND
-    게임 승리를 위해 필요한 점수
-*/
 const WINNABLE_ROUND = 2;
 
+const CANVAS_WIDTH = 1400;
+const CANVAS_HEIGHT = 1000;
+
 /* export */
-export { MOVE_DIRECTION, WINNABLE_ROUND };
+export { MOVE_DIRECTION, WINNABLE_ROUND, CANVAS_HEIGHT, CANVAS_WIDTH };

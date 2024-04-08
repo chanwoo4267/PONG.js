@@ -1,38 +1,61 @@
+import { MOVE_DIRECTION, CANVAS_HEIGHT, CANVAS_WIDTH } from './global.js';
+
 const PLAYER_WIDTH = 18;
 const PLAYER_HEIGHT = 70;
 const PLAYER_DIST_X = 150;
-const PLAYER_DIST_Y = 35
+const PLAYER_SPEED = 10;
+const PLAYER_COLOR = '#ffffff';
 
-/*
-    let Player
+class Player {
+    constructor(dir) {
+        this.width = PLAYER_WIDTH;
+        this.height = PLAYER_HEIGHT;
+        this.x = dir === 'left' ? PLAYER_DIST_X : CANVAS_WIDTH - PLAYER_DIST_X;
+        this.y = (CANVAS_HEIGHT / 2) - (PLAYER_WIDTH * 2);
+        this.move = MOVE_DIRECTION.IDLE;
+        this.speed = PLAYER_SPEED;
+        this.side = dir;
+        this.color = PLAYER_COLOR;
+    }
 
-    variables:
-        width - 플레이어 패들의 가로 길이
-        height - 플레이어 패들의 세로 길이
-        x - 플레이어 패들의 x 좌표
-        y - 플레이어 패들의 y 좌표
-        score - 플레이어가 획득한 점수
-        move - 플레이어 패들이 움직이는 방향 (y)
-        speed - 플레이어 패들의 속도
-        side - 플레이어 진영(left, right)
-    
-    methods:
-        new : function (dir, canvas_width, canvas_height)
-            객체를 생성할 때 초기값을 설정
-*/
-let Player = {
-	new: function (dir, canvas_width, canvas_height) {
-		return {
-			width: PLAYER_WIDTH,
-			height: PLAYER_HEIGHT,
-			x: dir === 'left' ? PLAYER_DIST_X : canvas_width - PLAYER_DIST_X,
-			y: (canvas_height / 2) - (PLAYER_WIDTH * 2),
-			score: 0,
-			move: DIRECTION.IDLE,
-			speed: 10,
-            side: dir
-		};
-	}
+    drawPlayer(context) {
+        context.fillStyle = this.color;
+        context.fillRect(
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        );
+    }
+
+    movePlayer() {
+        if (this.move === MOVE_DIRECTION.UP)
+            this.y -= this.speed;
+        else if (this.move === MOVE_DIRECTION.DOWN)
+            this.y += this.speed;
+        
+        if (this.y <= 0)
+            this.y = 0;
+        else if (this.y >= CANVAS_HEIGHT - PLAYER_HEIGHT)
+            this.y = CANVAS_HEIGHT - PLAYER_HEIGHT;
+    }
+
+    getMoveDirection() {
+        return this.move;
+    }
+
+    setMoveDirection(dir) {
+        this.move = dir;
+    }
+
+    getPlayerPositionInfo() {
+        return {
+            x: this.x,
+            y: this.y,
+            width: this.width,
+            height: this.height
+        };
+    }
 };
 
 /* export */
