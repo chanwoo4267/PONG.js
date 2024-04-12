@@ -5,6 +5,13 @@ import { Game } from './script/game.js';
 
 const READY_TIME = 2000;
 
+const keyState = {
+    87: false, // 'w'
+    38: false, // 'up'
+    83: false, // 's'
+    40: false  // 'down'
+};
+
 class GameManager {
     constructor() {
         this.canvas = document.querySelector('canvas');
@@ -98,22 +105,33 @@ class GameManager {
                 window.requestAnimationFrame(this.loop.bind(this)); // check : okay?
             }
 
-            if (key.keyCode === 87)
-                this.player_left.setMoveDirection(MOVE_DIRECTION.UP);
-            if (key.keyCode === 38) 
-                this.player_right.setMoveDirection(MOVE_DIRECTION.UP);
-            if (key.keyCode === 83) 
-                this.player_left.setMoveDirection(MOVE_DIRECTION.DOWN);
-            if (key.keyCode === 40) 
-                this.player_right.setMoveDirection(MOVE_DIRECTION.DOWN);
+            keyState[key.keyCode] = true;
+            this.updatePlayerMovement();
         });
 
         document.addEventListener('keyup', (key) => {
-            if (key.keyCode === 87 || key.keyCode === 83)
-                this.player_left.setMoveDirection(MOVE_DIRECTION.IDLE);
-            if (key.keyCode === 38 || key.keyCode === 40)
-                this.player_right.setMoveDirection(MOVE_DIRECTION.IDLE);
+            
+            keyState[key.keyCode] = false;
+            this.updatePlayerMovement();
         });
+    }
+
+    updatePlayerMovement = () => {
+        if (keyState[87]) { // 'w'
+            this.player_left.setMoveDirection(MOVE_DIRECTION.UP);
+        } else if (keyState[83]) { // 's'
+            this.player_left.setMoveDirection(MOVE_DIRECTION.DOWN);
+        } else {
+            this.player_left.setMoveDirection(MOVE_DIRECTION.IDLE);
+        }
+
+        if (keyState[38]) { // 'up'
+            this.player_right.setMoveDirection(MOVE_DIRECTION.UP);
+        } else if (keyState[40]) { // 'down'
+            this.player_right.setMoveDirection(MOVE_DIRECTION.DOWN);
+        } else {
+            this.player_right.setMoveDirection(MOVE_DIRECTION.IDLE);
+        }
     }
 
     resetTurn(loser) {
