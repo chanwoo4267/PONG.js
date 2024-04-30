@@ -25,9 +25,6 @@ SECRET_KEY = 'django-insecure-dsf5--w2d24jho-lt0fa!bq(8ou*xg5sicpi#_d37#0t@4e9tx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -50,12 +47,14 @@ CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1:3000',  # for localhost (REACT Default)
     'http://127.0.0.1:8000',  # for localhost (Developlemt)
     'http://localhost:3000',
+    'http://localhost:8000',
 )
 
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:3000',  # for localhost (REACT Default)
     'http://127.0.0.1:8000',  # for localhost (Developlemt)
     'http://localhost:3000',
+    'http://localhost:8000',
 ]
 
 MIDDLEWARE = [

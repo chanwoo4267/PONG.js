@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "serve -s .",
+    "start": "serve -s srcs",
     "build": "webpack --config webpack.config.js",
     "server": "serve -s dist -l 3000"
   },
